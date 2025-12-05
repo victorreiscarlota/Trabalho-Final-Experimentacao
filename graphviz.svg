@@ -1,0 +1,138 @@
+<svg width="392pt" height="512pt" viewBox="0.00 0.00 392.00 512.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 508)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-508 388.23,-508 388.23,4 -4,4"/>
+<!-- A -->
+<g id="node1" class="node">
+<title>A</title>
+<path fill="#e6f2ff" stroke="#2b6ca3" stroke-width="1.6" d="M149.22,-504C149.22,-504 21.01,-504 21.01,-504 15.01,-504 9.01,-498 9.01,-492 9.01,-492 9.01,-472.8 9.01,-472.8 9.01,-466.8 15.01,-460.8 21.01,-460.8 21.01,-460.8 149.22,-460.8 149.22,-460.8 155.22,-460.8 161.22,-466.8 161.22,-472.8 161.22,-472.8 161.22,-492 161.22,-492 161.22,-498 155.22,-504 149.22,-504"/>
+<text xml:space="preserve" text-anchor="middle" x="85.12" y="-486" font-family="Helvetica,sans-Serif" font-size="12.00">Selecao de</text>
+<text xml:space="preserve" text-anchor="middle" x="85.12" y="-471.6" font-family="Helvetica,sans-Serif" font-size="12.00">repositorios candidatos</text>
+</g>
+<!-- B -->
+<g id="node2" class="node">
+<title>B</title>
+<path fill="#f7fbff" stroke="#2b6ca3" d="M295.19,-504C295.19,-504 223.04,-504 223.04,-504 217.04,-504 211.04,-498 211.04,-492 211.04,-492 211.04,-472.8 211.04,-472.8 211.04,-466.8 217.04,-460.8 223.04,-460.8 223.04,-460.8 295.19,-460.8 295.19,-460.8 301.19,-460.8 307.19,-466.8 307.19,-472.8 307.19,-472.8 307.19,-492 307.19,-492 307.19,-498 301.19,-504 295.19,-504"/>
+<text xml:space="preserve" text-anchor="middle" x="259.12" y="-486" font-family="Helvetica,sans-Serif" font-size="12.00">Clonagem e</text>
+<text xml:space="preserve" text-anchor="middle" x="259.12" y="-471.6" font-family="Helvetica,sans-Serif" font-size="12.00">pre-filtragem</text>
+</g>
+<!-- A&#45;&gt;B -->
+<g id="edge1" class="edge">
+<title>A-&gt;B</title>
+<path fill="none" stroke="#2b6ca3" stroke-width="1.4" d="M161.94,-490C161.94,-490 199.58,-490 199.58,-490"/>
+<polygon fill="#2b6ca3" stroke="#2b6ca3" stroke-width="1.4" points="199.58,-493.15 208.58,-490 199.58,-486.85 199.58,-493.15"/>
+</g>
+<!-- C -->
+<g id="node3" class="node">
+<title>C</title>
+<path fill="#f7fbff" stroke="#2b6ca3" d="M158.23,-388.8C158.23,-388.8 12,-388.8 12,-388.8 6,-388.8 0,-382.8 0,-376.8 0,-376.8 0,-357.6 0,-357.6 0,-351.6 6,-345.6 12,-345.6 12,-345.6 158.23,-345.6 158.23,-345.6 164.23,-345.6 170.23,-351.6 170.23,-357.6 170.23,-357.6 170.23,-376.8 170.23,-376.8 170.23,-382.8 164.23,-388.8 158.23,-388.8"/>
+<text xml:space="preserve" text-anchor="middle" x="85.12" y="-370.8" font-family="Helvetica,sans-Serif" font-size="12.00">Detectar commits de</text>
+<text xml:space="preserve" text-anchor="middle" x="85.12" y="-356.4" font-family="Helvetica,sans-Serif" font-size="12.00">remocao de dependencias</text>
+</g>
+<!-- A&#45;&gt;C -->
+<!-- B&#45;&gt;C -->
+<g id="edge2" class="edge">
+<title>B-&gt;C</title>
+<path fill="none" stroke="#2b6ca3" stroke-width="1.4" d="M210.78,-475C187.99,-475 165.73,-475 165.73,-475 165.73,-475 165.73,-400.39 165.73,-400.39"/>
+<polygon fill="#2b6ca3" stroke="#2b6ca3" stroke-width="1.4" points="168.88,-400.39 165.73,-391.39 162.58,-400.39 168.88,-400.39"/>
+</g>
+<!-- D -->
+<g id="node4" class="node">
+<title>D</title>
+<path fill="#f7fbff" stroke="#2b6ca3" d="M365.87,-388.8C365.87,-388.8 232.36,-388.8 232.36,-388.8 226.36,-388.8 220.36,-382.8 220.36,-376.8 220.36,-376.8 220.36,-357.6 220.36,-357.6 220.36,-351.6 226.36,-345.6 232.36,-345.6 232.36,-345.6 365.87,-345.6 365.87,-345.6 371.87,-345.6 377.87,-351.6 377.87,-357.6 377.87,-357.6 377.87,-376.8 377.87,-376.8 377.87,-382.8 371.87,-388.8 365.87,-388.8"/>
+<text xml:space="preserve" text-anchor="middle" x="299.12" y="-370.8" font-family="Helvetica,sans-Serif" font-size="12.00">Identificar commits</text>
+<text xml:space="preserve" text-anchor="middle" x="299.12" y="-356.4" font-family="Helvetica,sans-Serif" font-size="12.00">pre (pico) e pos (menor)</text>
+</g>
+<!-- B&#45;&gt;D -->
+<!-- C&#45;&gt;D -->
+<g id="edge3" class="edge">
+<title>C-&gt;D</title>
+<path fill="none" stroke="#2b6ca3" stroke-width="1.4" d="M170.62,-374C170.62,-374 208.88,-374 208.88,-374"/>
+<polygon fill="#2b6ca3" stroke="#2b6ca3" stroke-width="1.4" points="208.88,-377.15 217.88,-374 208.88,-370.85 208.88,-377.15"/>
+</g>
+<!-- E -->
+<g id="node5" class="node">
+<title>E</title>
+<path fill="#f7fbff" stroke="#2b6ca3" d="M151.55,-273.6C151.55,-273.6 44.68,-273.6 44.68,-273.6 38.68,-273.6 32.68,-267.6 32.68,-261.6 32.68,-261.6 32.68,-242.4 32.68,-242.4 32.68,-236.4 38.68,-230.4 44.68,-230.4 44.68,-230.4 151.55,-230.4 151.55,-230.4 157.55,-230.4 163.55,-236.4 163.55,-242.4 163.55,-242.4 163.55,-261.6 163.55,-261.6 163.55,-267.6 157.55,-273.6 151.55,-273.6"/>
+<text xml:space="preserve" text-anchor="middle" x="98.12" y="-255.6" font-family="Helvetica,sans-Serif" font-size="12.00">Checkout e analise</text>
+<text xml:space="preserve" text-anchor="middle" x="98.12" y="-241.2" font-family="Helvetica,sans-Serif" font-size="12.00">statica (pre / pos)</text>
+</g>
+<!-- C&#45;&gt;E -->
+<!-- D&#45;&gt;E -->
+<g id="edge4" class="edge">
+<title>D-&gt;E</title>
+<path fill="none" stroke="#2b6ca3" stroke-width="1.4" d="M219.9,-360C205.68,-360 195.29,-360 195.29,-360 195.29,-360 195.29,-259 195.29,-259 195.29,-259 175.13,-259 175.13,-259"/>
+<polygon fill="#2b6ca3" stroke="#2b6ca3" stroke-width="1.4" points="175.13,-255.85 166.13,-259 175.13,-262.15 175.13,-255.85"/>
+</g>
+<!-- F -->
+<g id="node6" class="node">
+<title>F</title>
+<path fill="#f7fbff" stroke="#2b6ca3" d="M372.23,-273.6C372.23,-273.6 226,-273.6 226,-273.6 220,-273.6 214,-267.6 214,-261.6 214,-261.6 214,-242.4 214,-242.4 214,-236.4 220,-230.4 226,-230.4 226,-230.4 372.23,-230.4 372.23,-230.4 378.23,-230.4 384.23,-236.4 384.23,-242.4 384.23,-242.4 384.23,-261.6 384.23,-261.6 384.23,-267.6 378.23,-273.6 372.23,-273.6"/>
+<text xml:space="preserve" text-anchor="middle" x="299.12" y="-255.6" font-family="Helvetica,sans-Serif" font-size="12.00">Coleta de vulnerabilidades</text>
+<text xml:space="preserve" text-anchor="middle" x="299.12" y="-241.2" font-family="Helvetica,sans-Serif" font-size="12.00"> e metadata</text>
+</g>
+<!-- D&#45;&gt;F -->
+<!-- E&#45;&gt;F -->
+<g id="edge5" class="edge">
+<title>E-&gt;F</title>
+<path fill="none" stroke="#2b6ca3" stroke-width="1.4" d="M163.93,-245C163.93,-245 202.63,-245 202.63,-245"/>
+<polygon fill="#2b6ca3" stroke="#2b6ca3" stroke-width="1.4" points="202.63,-248.15 211.63,-245 202.63,-241.85 202.63,-248.15"/>
+</g>
+<!-- G -->
+<g id="node7" class="node">
+<title>G</title>
+<path fill="#f7fbff" stroke="#2b6ca3" d="M161.38,-158.4C161.38,-158.4 36.85,-158.4 36.85,-158.4 30.85,-158.4 24.85,-152.4 24.85,-146.4 24.85,-146.4 24.85,-127.2 24.85,-127.2 24.85,-121.2 30.85,-115.2 36.85,-115.2 36.85,-115.2 161.38,-115.2 161.38,-115.2 167.38,-115.2 173.38,-121.2 173.38,-127.2 173.38,-127.2 173.38,-146.4 173.38,-146.4 173.38,-152.4 167.38,-158.4 161.38,-158.4"/>
+<text xml:space="preserve" text-anchor="middle" x="99.12" y="-140.4" font-family="Helvetica,sans-Serif" font-size="12.00">Rotulacao de motivos</text>
+<text xml:space="preserve" text-anchor="middle" x="99.12" y="-126" font-family="Helvetica,sans-Serif" font-size="12.00">(automatica + manual)</text>
+</g>
+<!-- E&#45;&gt;G -->
+<!-- F&#45;&gt;G -->
+<g id="edge6" class="edge">
+<title>F-&gt;G</title>
+<path fill="none" stroke="#2b6ca3" stroke-width="1.4" d="M217.01,-229.94C217.01,-199.42 217.01,-148 217.01,-148 217.01,-148 184.9,-148 184.9,-148"/>
+<polygon fill="#2b6ca3" stroke="#2b6ca3" stroke-width="1.4" points="184.9,-144.85 175.9,-148 184.9,-151.15 184.9,-144.85"/>
+</g>
+<!-- H -->
+<g id="node8" class="node">
+<title>H</title>
+<path fill="#f7fbff" stroke="#2b6ca3" d="M363.22,-158.4C363.22,-158.4 235.02,-158.4 235.02,-158.4 229.02,-158.4 223.02,-152.4 223.02,-146.4 223.02,-146.4 223.02,-127.2 223.02,-127.2 223.02,-121.2 229.02,-115.2 235.02,-115.2 235.02,-115.2 363.22,-115.2 363.22,-115.2 369.22,-115.2 375.22,-121.2 375.22,-127.2 375.22,-127.2 375.22,-146.4 375.22,-146.4 375.22,-152.4 369.22,-158.4 363.22,-158.4"/>
+<text xml:space="preserve" text-anchor="middle" x="299.12" y="-140.4" font-family="Helvetica,sans-Serif" font-size="12.00">Agregacao de metricas</text>
+<text xml:space="preserve" text-anchor="middle" x="299.12" y="-126" font-family="Helvetica,sans-Serif" font-size="12.00"> e dataset</text>
+</g>
+<!-- F&#45;&gt;H -->
+<!-- G&#45;&gt;H -->
+<g id="edge7" class="edge">
+<title>G-&gt;H</title>
+<path fill="none" stroke="#2b6ca3" stroke-width="1.4" d="M173.87,-126C173.87,-126 211.66,-126 211.66,-126"/>
+<polygon fill="#2b6ca3" stroke="#2b6ca3" stroke-width="1.4" points="211.66,-129.15 220.66,-126 211.66,-122.85 211.66,-129.15"/>
+</g>
+<!-- I -->
+<g id="node9" class="node">
+<title>I</title>
+<path fill="#f7fbff" stroke="#2b6ca3" d="M167.54,-43.2C167.54,-43.2 66.69,-43.2 66.69,-43.2 60.69,-43.2 54.69,-37.2 54.69,-31.2 54.69,-31.2 54.69,-12 54.69,-12 54.69,-6 60.69,0 66.69,0 66.69,0 167.54,0 167.54,0 173.54,0 179.54,-6 179.54,-12 179.54,-12 179.54,-31.2 179.54,-31.2 179.54,-37.2 173.54,-43.2 167.54,-43.2"/>
+<text xml:space="preserve" text-anchor="middle" x="117.12" y="-25.2" font-family="Helvetica,sans-Serif" font-size="12.00">Analise estatistica</text>
+<text xml:space="preserve" text-anchor="middle" x="117.12" y="-10.8" font-family="Helvetica,sans-Serif" font-size="12.00"> e qualitativa</text>
+</g>
+<!-- G&#45;&gt;I -->
+<!-- H&#45;&gt;I -->
+<g id="edge8" class="edge">
+<title>H-&gt;I</title>
+<path fill="none" stroke="#2b6ca3" stroke-width="1.4" d="M222.64,-137C220.96,-137 220.01,-137 220.01,-137 220.01,-137 220.01,-29 220.01,-29 220.01,-29 191.05,-29 191.05,-29"/>
+<polygon fill="#2b6ca3" stroke="#2b6ca3" stroke-width="1.4" points="191.05,-25.85 182.05,-29 191.05,-32.15 191.05,-25.85"/>
+</g>
+<!-- J -->
+<g id="node10" class="node">
+<title>J</title>
+<path fill="#e6ffe6" stroke="#2b6ca3" stroke-width="1.6" d="M356.88,-43.2C356.88,-43.2 241.35,-43.2 241.35,-43.2 235.35,-43.2 229.35,-37.2 229.35,-31.2 229.35,-31.2 229.35,-12 229.35,-12 229.35,-6 235.35,0 241.35,0 241.35,0 356.88,0 356.88,0 362.88,0 368.88,-6 368.88,-12 368.88,-12 368.88,-31.2 368.88,-31.2 368.88,-37.2 362.88,-43.2 356.88,-43.2"/>
+<text xml:space="preserve" text-anchor="middle" x="299.12" y="-25.2" font-family="Helvetica,sans-Serif" font-size="12.00">Relatorio, notebooks</text>
+<text xml:space="preserve" text-anchor="middle" x="299.12" y="-10.8" font-family="Helvetica,sans-Serif" font-size="12.00"> e repositorio publico</text>
+</g>
+<!-- H&#45;&gt;J -->
+<!-- I&#45;&gt;J -->
+<g id="edge9" class="edge">
+<title>I-&gt;J</title>
+<path fill="none" stroke="#2b6ca3" stroke-width="1.4" d="M180.01,-14C180.01,-14 217.63,-14 217.63,-14"/>
+<polygon fill="#2b6ca3" stroke="#2b6ca3" stroke-width="1.4" points="217.63,-17.15 226.63,-14 217.63,-10.85 217.63,-17.15"/>
+</g>
+</g>
+</svg>
