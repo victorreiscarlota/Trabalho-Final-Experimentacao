@@ -1,228 +1,221 @@
-# Plano de Experimento – Scoping e Planejamento
+# Trabalho Final de Medição
 Disciplina: Engenharia de Software  
-Projeto: Simulação e Visualização 3D da Dispersão de Poluentes em Ambientes Aquáticos  
+Projeto / TCC: Por que Desenvolvedores Deixam de Usar Bibliotecas de Terceiros: Evidências a partir de Projetos JavaScript  
 ID / código: EXP-DP-01
+
+Versão: v1.0 (2025-12-05)  
+Histórico: v1.0: Documento inicial adaptado ao tema "remoção de dependências em projetos JavaScript".
+
+---
 
 ## 1. Identificação básica
 
-### 1.1 Título do experimento
-Simulação e Validação de um Modelo de Difusão 2D com Visualização 3D Interativa.
+### 1.1 Título do experimento / TCC
+Por que Desenvolvedores Deixam de Usar Bibliotecas de Terceiros: Evidências a partir de Projetos JavaScript
 
 ### 1.2 Versão do documento e histórico de revisão
-Versão: v1.0 (26/11/2025)  
-Histórico: v1.0: Documento inicial com escopo, GQM e plano de execução.
+Versão: v1.0 (2025-12-05)  
+Histórico: Documento inicial.
 
 ### 1.3 Datas (criação, última atualização)
-Criação: 26/11/2025  
-Última atualização: 26/11/2025
+Criação: 2025-12-05  
+Última atualização: 2025-12-05
 
 ### 1.4 Autores (nome, área, contato)
-Autor principal: Victor Reis Carlota – Engenharia de Software
+Autor principal: Victor Reis Carlota – Engenharia de Software  
+Contribuidores: André H. Hyodo, Gustavo P. Pereira, Luís Felipe T. D. Brescia, Luiz Felipe C. de Morais, Marcus V. Carvalho (lista de autores do estudo de referência).
 
 ### 1.5 Responsável principal (PI / dono do experimento)
 Responsável (PI): Victor Reis Carlota
 
 ### 1.6 Projeto / produto / iniciativa relacionada
-Trabalho de conclusão / projeto acadêmico em Engenharia de Software com foco em modelagem numérica e visualização científica.
+Trabalho de Conclusão de Curso (TCC) em Engenharia de Software — estudo empírico por mineração de repositórios GitHub / npm para entender motivações, impactos e consequências da remoção de dependências em projetos JavaScript/Node.js.
 
 ---
 
 ## 2. Contexto e problema
 
-A dispersão de poluentes em corpos d'água é um problema ambiental que pode ser estudado por modelos simplificados (equação da difusão). O objetivo é construir um protótipo leve e interativo que permita simular, validar e visualizar a dispersão, integrado a técnicas e práticas de engenharia de software (versionamento, testes, documentação, usabilidade).
+Bibliotecas de terceiros são centrais no ecossistema JavaScript (npm). Apesar das vantagens, desenvolvedores muitas vezes removem ou substituem dependências. Compreender os motivos, a frequência e os efeitos dessas remoções (segurança, complexidade, tamanho do código, adoção de APIs nativas) é relevante para orientar práticas de manutenção, políticas de dependências e decisões arquiteturais. Este estudo investiga empiricamente ocorrências de remoção de dependências em repositórios JavaScript hospedados no GitHub, buscando identificar motivações (segurança, desempenho, custo de manutenção, obsolescência), e quantificar impactos em métricas de código e segurança.
 
 ---
 
 ## 3. Objetivos e questões (Goal / Question / Metric - GQM)
 
-Objetivo Geral: Desenvolver, validar e avaliar um protótipo que simula a dispersão de poluentes em 2D via equação da difusão, exporta mapas temporais e os integra a uma visualização 3D interativa, avaliando acurácia numérica, desempenho computacional e usabilidade.
+Objetivo Geral: Analisar, por meio de mineração de repositórios e análise quantitativa/qualitativa, as motivações e impactos associados à remoção de bibliotecas externas em projetos JavaScript.
 
-### 3.1 Objetivos específicos (mín. 4)
-- O1: Implementar numericamente a equação da difusão 2D (FTCS explícito) e validar a solução numérica.
-- O2: Avaliar eficiência computacional e escalabilidade da simulação (tempo, memória).
-- O3: Construir e avaliar uma visualização 3D interativa dos mapas de concentração.
-- O4: Validar o modelo contra dados reais (quando disponíveis) e analisar sensibilidade a parâmetros.
-- O5: Fornecer interface interativa com parâmetros ajustáveis e avaliar usabilidade/latência.
+Variável dependente única (VD):  
+- M1 — Redução do Número de Dependências (DeltaDeps): diferença entre o número de dependências no estado pré-refatoração (pico) e no estado pós-refatoração (menor número após reduções). Unidade: contagem.
 
-### 3.2 Tabela GQM (Objetivo | Perguntas | Métricas)
-| Objetivo | Pergunta | Métricas (≥2 por pergunta) |
-|---|---|---|
-| O1: Implementação e validação numérica | Q1.1: Qual é o erro numérico frente à solução analítica (casos testáveis)? | M1 (Erro L2), M2 (Erro L∞) |
-| O1 | Q1.2: A massa total do contaminante é preservada dentro de tolerância? | M3 (Erro de conservação de massa), M9 (RMSE vs dados reais quando aplicável) |
-| O1 | Q1.3: Qual é a ordem de convergência ao refinar a malha? | M4 (Taxa de convergência), M5 (Margem de estabilidade / CFL) |
-| O2: Eficiência e escalabilidade | Q2.1: Quanto tempo de CPU por passo e por simulação completa? | M6 (Tempo por passo), M7 (Tempo total de simulação) |
-| O2 | Q2.2: Qual o uso de memória em diferentes tamanhos de grid? | M8 (Uso de memória), M14 (Número de elementos do grid) |
-| O2 | Q2.3: Como varia o desempenho ao alterar resolução e Δt? | M6 (Tempo por passo), M4 (Taxa de convergência) |
-| O3: Visualização 3D | Q3.1: A visualização mantém framerate aceitável em diferentes resoluções? | M11 (FPS na visualização), M8 (Uso de memória) |
-| O3 | Q3.2: A latência de interação (zoom/rotac/seleção) é aceitável? | M12 (Latência de interação), M6 (Tempo por passo ao renderizar) |
-| O3 | Q3.3: Qual a qualidade percebida da visualização pelos usuários? | M13 (Satisfação do usuário — Likert), M10 (Coef. de correlação espacial vs referência) |
-| O4: Validação e sensibilidade | Q4.1: Quão bem o modelo reproduz padrões observados em dados reais? | M9 (RMSE vs dados reais), M10 (Coeficiente de correlação espacial) |
-| O4 | Q4.2: Quais parâmetros (D, Δx, Δt, fonte) mais influenciam o resultado? | M15 (Sensibilidade relativa por parâmetro), M1 (Erro L2) |
-| O4 | Q4.3: O modelo é robusto a pequenas perturbações nas condições iniciais? | M3 (Erro de conservação de massa), M15 (Sensibilidade relativa) |
-| O5: Interface e usabilidade | Q5.1: Usuários ajustam parâmetros e entendem efeitos em tempo razoável? | M12 (Latência de interação), M13 (Satisfação do usuário) |
-| O5 | Q5.2: A interface permite exportar mapas/frames sem perda de dados? | M7 (Tempo total para exportação), M8 (Uso de memória durante exportação) |
-| O5 | Q5.3: Qual o esforço médio para produzir e visualizar um cenário? | M6 (Tempo por passo), M11 (FPS durante a sessão) |
+Observação: M1 é a variável dependente principal das análises inferenciais. As demais medidas (vulnerabilidades, KLOC, complexidade etc.) são métricas de apoio/atributos.
 
-Observação: cada objetivo contém no mínimo 3 perguntas; cada pergunta tem pelo menos duas métricas associadas. As métricas podem repetir entre perguntas; no total há ≥10 métricas distintas (definidas abaixo).
+### 3.1 Objetivos específicos
+- O1: Identificar commits que representam remoção ou substituição de dependências em repositórios JavaScript.
+- O2: Categorizar motivos das remoções a partir de mensagens de commit, issues/PR e diffs (segurança, performance, manutenção, substituição por nativo, obsolescência, etc.).
+- O3: Quantificar o impacto da remoção sobre vulnerabilidades conhecidas (CVE), tamanho (KLOC) e complexidade (cyclomatic).
+- O4: Investigiar se a remoção leva à substituição por funções nativas do JavaScript ou remoção simples de referência.
+- O5: Fornecer recomendações práticas para gerenciamento de dependências.
+
+### 3.2 GQM (exemplos de perguntas e métricas)
+- Q1: A redução de dependências (M1) está associada a diminuição do número de vulnerabilidades (M_vuln)?  
+  - Métricas: M1 (VD), M_vuln (nº de CVEs), M9 (RMSE não aplicável aqui — substituir por contagem de CVEs).
+- Q2: A redução de dependências impacta o KLOC e a complexidade (M2/M3)?  
+  - Métricas: M2 (ΔKLOC), M3 (ΔCyclomatic).
+- Q3: Em que proporção a remoção foi substituída por implementações nativas do JS (M4)?  
+  - Métricas: M4 (Proporção de substituições por nativo), M1 (VD).
+- Q4: Quais categorias motivacionais são mais frequentes (M5 categórica)?  
+  - Métricas: M5 (categoria de motivo por commit/PR), contagens por categoria.
 
 ---
 
 ## 4. Métricas (descrição e unidade)
 
-| Métrica | Descrição | Unidade |
-|---|---:|---|
-| M1 – Erro L2 | Norma L2 do vetor de diferença entre solução numérica e referência | mesma unidade de concentração |
-| M2 – Erro L∞ | Erro máximo pontual entre solução numérica e referência | mesma unidade de concentração |
-| M3 – Erro de conservação de massa | Variação percentual da massa total ao longo da simulação | % |
-| M4 – Taxa de convergência | Estimativa da ordem de convergência ao refinar Δx | expoente (valor adimensional) |
-| M5 – Margem de estabilidade (CFL) | Relação D·Δt/Δx^2 e verificação de condição estável | adimensional |
-| M6 – Tempo por passo | Tempo médio de CPU/real por iteração de tempo | segundos |
-| M7 – Tempo total de simulação / exportação | Tempo total para concluir uma simulação ou exportar dados | segundos / minutos |
-| M8 – Uso de memória | Pico de memória durante simulação / visualização | MB |
-| M9 – RMSE vs dados reais | Root Mean Square Error entre simulação e observações reais | mesma unidade de concentração |
-| M10 – Coeficiente de correlação espacial | Correlação espacial (Pearson / Spearman) entre mapas simulados e referência | coeficiente (-1 a 1) |
-| M11 – FPS na visualização | Frames por segundo mantidos pela cena 3D | frames/segundo |
-| M12 – Latência de interação | Tempo de resposta a ações do usuário (ms) | milissegundos |
-| M13 – Satisfação do usuário | Avaliação subjetiva (Likert 1–5) sobre usabilidade/qualidade | escala 1–5 |
-| M14 – Número de elementos do grid | Quantidade de células na malha (nx * ny) | contagem |
-| M15 – Sensibilidade relativa por parâmetro | Variação percentual na saída por variação percentual do parâmetro | % / % (razão) |
-
-(Existem 15 métricas distintas definidas, atendendo ao requisito de ≥10 métricas diferentes.)
+| Métrica (código) | Descrição | Unidade |
+|---|---|---|
+| M1 – DeltaDeps (VD) | Redução no número de dependências (pré - pós) | contagem |
+| M_vuln | Número de vulnerabilidades associadas às dependências (por severidade: alta/média/baixa) | contagem |
+| M2 – ΔKLOC | Variação do número de linhas de código (KLOC) antes x depois | linhas |
+| M3 – ΔCyclomatic | Variação média da complexidade ciclomática do código | unidade de complexidade |
+| M4 – NativeSubstRate | Proporção de remoções que resultaram em substituição por funções nativas | % |
+| M5 – MotiveCategory | Categoria do motivo declarado/induzido (Security, Performance, Maintenance, Obsolescence, NativeAvailable, Other) | categórica |
+| M6 – CommitMessageConfidence | Confiança na inferência do motivo a partir de msg/PR (alta/média/baixa) | categórica |
+| M7 – KLOC_after | KLOC após refatoração | linhas |
+| M8 – DependencyAgeAvg | Idade média das dependências removidas (tempo desde primeiro release ou última atualização) | meses/anos |
+| M9 – DependencyUsageRate | Fração de dependências listadas que são efetivamente importadas/used no código | % |
+| M10 – TimeToRefactor | Tempo decorrido entre primeiro pico e momento de menor número de dependências | dias |
+| M11 – RepoActivity | Métrica de atividade do repositório (commits por mês) | commits/mês |
 
 ---
 
 ## 5. Escopo e contexto do experimento
 
 ### 5.1 Incluído
-- Implementação do FTCS explícito em 2D, testes de validação (casos analíticos), cenários sintéticos e comparação com dados reais (quando disponíveis).
-- Exportação de mapas (CSV/NetCDF), integração a visualização 3D (Three.js/Unity) e testes de usabilidade.
-- Coleta automatizada de tempos, uso de memória e logs para reprodutibilidade.
+- Mineração de ~1.000 repositórios JavaScript/Node.js (ou número acordado) do GitHub que apresentam histórico de remoção de dependências.
+- Identificação automática de commits que removem dependências (análise de package.json e pastas de packages) e seleção de dois estados por repositório: pré-refatoração (maior número de dependências) e pós-refatoração (menor número após reduções).
+- Análise estática de código nos dois estados (KLOC, complexidade, import usage).
+- Extração de CVEs/vulnerabilidades associadas às dependências (canais públicos como npm audit advisories, OSV).
+- Rotulação manual/semiautomática de motivos a partir de commit messages, PRs e issues.
+- Análise quantitativa e qualitativa (estatística descritiva, testes, categorização qualitative).
 
 ### 5.2 Excluído
-- Modelagem completa de dinâmica de fluidos (Navier–Stokes) e modelos turbulentos avançados.
-- Comparação exaustiva entre múltiplas ferramentas comerciais.
+- Estudos profundos de segurança dinâmica (exploração de CVEs) ou análise de desempenho runtime dos sistemas além da categorização de motivos.
+- Repositórios privados sem autorização.
 
 ---
 
 ## 6. Stakeholders e impacto esperado
 
-- Estudantes e professores da disciplina de Engenharia de Software (uso educacional).
-- Pesquisador/autor do projeto (executante).
-- Comunidade acadêmica (repositório e reprodutibilidade).
-
-Impacto: ferramenta demonstrativa, material de ensino, base para trabalhos futuros.
+- Estudantes e orientadores do TCC; comunidade acadêmica de Engenharia de Software; mantenedores OSS; equipes que gerenciam cadeias de dependências.  
+Impacto esperado: evidências empíricas sobre motivos e efeitos da remoção de dependências, orientações para políticas de gestão de dependências e práticas de manutenção.
 
 ---
 
 ## 7. Riscos, premissas e critérios de sucesso
 
 ### 7.1 Riscos principais
-- R1: Instabilidade numérica se Δt violar condição CFL.  
-- R2: Dados reais indisponíveis ou incompatíveis.  
-- R3: Má performance em hardware limitado.  
-- R4: Baixa amostra em testes de usabilidade.
+- R1: Dificuldade em inferir motivo correto a partir de mensagens de commit/PR (ruído ou ausência de justificativa).
+- R2: Inconsistências na forma como dependências são registradas (monorepos, workspaces) dificultando detecção automática.
+- R3: Dados de vulnerabilidades incompletos ou não vinculáveis às versões específicas.
+- R4: Amostra não representativa (viés de seleção).
 
 ### 7.2 Premissas
-- Ambiente de execução com Python 3.x, NumPy, e navegador com WebGL (Three.js) ou Unity instalado.
-- Usuários testers com conhecimento básico de computação.
+- Repositórios públicos suficientemente documentados e com histórico Git coerente.
+- Ferramentas externas (npm advisories, OSV) fornecem dados de vulnerabilidades indexáveis.
+- Possibilidade de validação manual de uma amostra para calibrar classificadores.
 
 ### 7.3 Critérios de sucesso
-- Erro L2 aceitável em casos analíticos (ex.: <5%).
-- FPS interativo ≥ 30 em cenários didáticos.
-- Satisfação média do usuário ≥ 4/5.
-- Exportação de mapas sem perda de informação.
+- Identificação automática correta (precision/recall) de commits-chave acima de limiar mínimo (ex.: precision ≥ 0.8 em sample de validação).
+- Conjunto de ~1.000 repositórios com dois estados (pré/pós) válidos para análise.
+- Evidência estatística das relações pesquisadas (p.ex. redução média de CVEs associada a DeltaDeps com p < 0.05) ou justificativa alternativa.
 
 ---
 
 ## 8. Metodologia resumida e cronograma (sugestão para 3 meses)
 
-1. Semana 1–2: Revisão teórica, definição de casos teste e infraestrutura.  
-2. Semana 3–5: Implementação do solver FTCS e testes de validação analítica.  
-3. Semana 6–7: Benchmarks de performance e profiling (tempo/memória).  
-4. Semana 8–9: Construção da visualização 3D e integração de exportadores.  
-5. Semana 10: Testes de usabilidade e coleta de feedback.  
-6. Semana 11–12: Ajustes finais, documentação e elaboração do relatório.
+1. Semana 1–2: Revisão bibliográfica, seleção e filtragem inicial de repositórios; desenvolvimento de scripts de mineração.  
+2. Semana 3–4: Implementação dos detectores de commits (remoção de dependências), pipeline de clonagem e extração de estados (pré/pós).  
+3. Semana 5–6: Análise estática (KLOC, cyclomatic), coleta de CVEs e métricas de uso de dependências.  
+4. Semana 7–8: Rotulação (manual/semiauto) de motivos, treinamento/ajuste de heurísticas de classificação.  
+5. Semana 9–10: Execução das análises estatísticas e geração de visualizações; validação de resultados com amostra manual.  
+6. Semana 11–12: Redação do relatório, preparação de artefatos reprodutíveis (scripts, notebooks) e gravação do vídeo de ameaças à validade.
 
 ---
 
 ## 9. Instrumentação e protocolo operacional (resumo)
 
-- Scripts Python para simulação com logging de tempo e memória (timeit, memory-profiler).  
-- Casos de validação analítica (p.ex. solução gaussiana) e cenários sintéticos.  
-- Formulário de avaliação de usabilidade (Likert) e tarefas padronizadas para usuários.  
-- Repositório Git com instruções reproducíveis e notebooks de demonstração.
+- Ferramentas e bibliotecas: Git (libgit2/GitPython), Node.js/npm, Python (pandas, numpy, regex), Lizard (ou similar) para complexidade, frameworks de parsing AST (esprima/cherow), npm-audit/OSV API para vulnerabilidades, Jupyter Notebooks, Docker para reprodutibilidade.
+- Scripts principais:
+  - miner.py: percorre repositórios, identifica commits que alteram package.json ou diretórios de packages, registra eventos;
+  - extract_state.py: faz checkout de commits-chave e gera snapshot (codebase) para análise;
+  - metrics.py: calcula KLOC, cyclomatic, dependency usage;
+  - vuln_lookup.py: consulta advisories/OSV para dependências e versões;
+  - labeler.py: heurísticas de categorização de motivo a partir de commit message + PR/issue;
+- Protocolos: cada run grava metadata (repo, commit SHA, timestamp, runner env, versions), outputs em JSON/CSV, e hashes dos snapshots.
 
 ---
 
 ## 10. Plano de análise de dados (resumo)
 
-- Comparação de solução numérica vs referência com M1, M2 e M4.  
-- Testes de desempenho: M6–M8, análise de escalabilidade com M14.  
-- Validação com dados reais: M9 e M10.  
-- Análise de usabilidade: M11–M13.  
-- Sensibilidade: variação controlada de parâmetros e cálculo de M15.
+- Estatística descritiva: contagens, proporções de categorias de motivos, distribuição de DeltaDeps, distribuição de CVEs por severidade antes/pós.
+- Comparações pareadas (pré vs pós): Wilcoxon signed-rank test ou paired t-test para ΔKLOC, ΔCyclomatic, e contagens de vulnerabilidades conforme distribuição.
+- Modelagem: regressão (por exemplo, Poisson/negative binomial) para relacionar DeltaDeps (M1) a fatores independentes (DependencyAgeAvg, RepoActivity, MotiveCategory).
+- Análise qualitativa: amostra manual de commits e PRs para validar categorias e inferências.
+- Visualizações: boxplots, violin plots, barras por categoria, séries temporais de dependências.
 
 ---
 
 ## 11. Documentação e reprodutibilidade
 
-- Código versionado em repositório público com README, scripts de reprodução e dados de exemplo.  
-- Templates de exportação (CSV/NetCDF) e documentação de API/usuário.
+- Repositório público com:
+  - scripts de mineração e análise, Dockerfile para ambiente reprodutível, notebooks com análises e plots;
+  - dataset (metadados, métricas) disponibilizado conforme licenças dos repositórios originais e políticas de pesquisa;
+  - instruções "run_all.sh" e "README" com requisitos.
 
 ---
 
 ## 12. Contatos e próximos passos
 
-- Responsável: Victor Reis Carlota (disciplina: Engenharia de Software).  
-Próximos passos: confirmar ferramentas (Three.js vs Unity), preparar casos analíticos e montar ambiente de desenvolvimento reprodutível.
+- Responsável: Victor Reis Carlota  
+Próximos passos imediatos: definir lista inicial de repositórios (candidatos), implementar detector de commits de remoção de dependências e validar heurísticas em n=50 repositórios.
 
 ---
 
 ## 13. Tabela de Variáveis e Descrições
 
-| Variável | Símbolo / Nome curto | Descrição | Unidade / Escala |
+| Variável | Símbolo | Descrição | Unidade / Observação |
 |---|---:|---|---|
-| Concentração | C(x,y,t) | Concentração do poluente em cada célula da malha como função do espaço e do tempo | (unidade de concentração) |
-| Coeficiente de difusão | D | Coeficiente de difusão molecular/turbulento no modelo 2D | m^2/s (ou unidades adimensionais conforme normalização) |
-| Passo de espaço | Δx, Δy | Resolução espacial da malha (tamanho das células) | metros (m) ou unidades adimensionais |
-| Passo de tempo | Δt | Incremento temporal usado no esquema explícito FTCS | segundos (s) |
-| Número de células | nx, ny | Número de células em x e y; determina M14 | contagem |
-| Fonte/Emissão | S(x,y,t) | Termo de fonte que modela entrada contínua ou instantânea de poluente | mesma unidade de concentração / tempo |
-| Condições de contorno | BC | Tipo de BC aplicadas (Dirichlet/Neumann/Periódicas) | categórica |
-| Massa total | M_tot(t) | Soma de concentração multiplicada pelo volume de cada célula ao longo do domínio | mesma unidade de concentração × área |
-| Temperatura / Propriedades físicas (quando aplicável) | T | Parâmetros ambientais que podem influenciar D (opcional) | °C ou adimensional |
-| Tempo de execução | T_exec | Tempo total gasto pela simulação/execução | segundos / minutos |
-| Uso de memória | Mem_peak | Pico de memória observado durante a execução | MB |
-| Frame rate visual | FPS | Frames por segundo observados na visualização 3D | frames/segundo |
-| Latência de interação | Lat | Tempo entre ação do usuário e resposta visual | milissegundos (ms) |
+| Redução de dependências (VD) | M1 / DeltaDeps | Número de dependências removidas (pré - pós) | contagem |
+| Vulnerabilidades | M_vuln | Nº de CVEs vinculados às dependências (por severidade) | contagem |
+| Linhas de código | M2 / KLOC | KLOC antes e depois | linhas |
+| Complexidade | M3 / Cyclomatic | Complexidade ciclomática média | unidade |
+| Substituição por nativo | M4 / NativeSubstRate | % de remoções com substituição por API nativa | % |
+| Motivo identificado | M5 / MotiveCategory | Categoria do motivo inferido | categórica |
+| Confiança da rotulagem | M6 / CommitMessageConfidence | Confiança da inferência do motivo | alta/média/baixa |
+| Idade média da dependência | M8 / DependencyAgeAvg | Tempo desde última atualização/primeiro release | meses |
+| Uso efetivo | M9 / DependencyUsageRate | % de dependências realmente importadas/usuadas | % |
+| Tempo de refatoração | M10 / TimeToRefactor | Tempo entre pico e menor número de dependências | dias |
+| Atividade do repo | M11 / RepoActivity | Commits por mês | commits/mês |
 
 ---
 
 ## 14. Fatores, Tratamentos e Combinações de Experimento
 
-Objetivo: especificar os fatores experimentais que serão variáveis de estudo, seus níveis (tratamentos) e uma proposta de combinações (plano experimental).
+Objetivo: identificar quais fatores estão associados a maior DeltaDeps e quais motivam remoções.
 
-Tabela de fatores e tratamentos:
+Tabela de fatores e níveis (exemplos):
 
 | Fator | Símbolo | Níveis / Tratamentos | Observações |
 |---|---:|---|---|
-| Resolução espacial (grid) | Grid | Baixa (64×64), Média (128×128), Alta (256×256) | Afeta M14, M6, M8, M4 |
-| Passo de tempo | Δt | Estável (Δt <= CFL_lim), Próximo ao limite (≈0.9·CFL_lim), Instável (>CFL_lim) | Afeta M5, M1, M3 |
-| Coeficiente de difusão | D | Baixo, Médio, Alto | Afeta espalhamento e sensibilidade (M15, M1) |
-| Força da fonte | S | Nula (0), Fraca, Forte | Testa resposta do modelo e conservação de massa |
-| Tipo de BC | BC | Dirichlet, Neumann, Periódica | Afeta padrões próximos a bordas e comparação com referência |
-| Visualização / Render | Viz | Baixa (textura simples), Média (shading), Alta (textura + iluminação + post) | Afeta M11, M8 |
-| Hardware | HW | Desktop (alto), Laptop (médio), Raspberry/mini (baixo) | Afeta M6, M7, M8, M11 |
+| Motivo inferido | Motive | Security, Performance, Maintenance, Obsolescence, NativeAvailable, Other | categórico — extraído de commit/PR |
+| Dependência vulnerável existente | Vuln | Sim, Não | se havia CVE associado antes da remoção |
+| Dependency age | Age | Nova (<6m), Maduro (6m–2y), Antiga (>2y) | influencia decisão |
+| Dependency usage | UseRate | Alta (>=50% imports), Baixa (<50%), Zerada | impacto no custo de remoção |
+| Repo Activity | Activity | Alta (>30 c/m), Média (10–30 c/m), Baixa (<10 c/m) | suporte à manutenção |
+| Projeto tipo | Project | Library, App, CLI, Boilerplate | contexto de remoção |
+| Monorepo / Workspace | Mono | Sim, Não | estratégia de packaging complica remoção |
 
-Plano de combinações sugerido:
-- Plano completo (fatorial): combinação de todos os níveis resulta em produto das cardinalidades (por exemplo, 3(grid) × 3(Δt) × 3(D) × 3(S) × 3(BC) × 3(Viz) × 3(HW) = elevado). Não recomendado na íntegra por custo computacional.
-- Plano reduzido (recomendado): selecionar um desenho fatorial fracionado focalizado nos fatores mais críticos para os objetivos (Grid, Δt, D, S, Viz). Exemplo prático:
-  - Mantém BC = {Dirichlet, Neumann} (2 níveis) e HW como cenários representativos (alto, baixo).
-  - Testes principais (full factorial restrito): Grid (3) × Δt (3) × D (3) × S (3) × Viz (3) × BC (2) × HW (2) = 3^5 × 2^2 = 243 × 4 = 972 combinações — ainda alto.
-  - Plano prático final: usar uma amostragem estratificada / DOE (Design of Experiments) com 50–120 cenários selecionados cobrindo espaço de fatores, priorizando:
-    - Todos os níveis de Grid × Δt estável/instável × 3 níveis de D × 2 níveis de S × 2 níveis de Viz × 2 BC × 2 HW = ~288 (mais manejável).
-  - Alternativa: usar um experimento DOE tipo Latin Hypercube ou Plackett-Burman para varredura inicial de sensibilidade (por exemplo, 50–100 corridas) e depois refinar em subespaços relevantes.
-- Recomenda-se documentar todas as combinações executadas e os critérios de seleção (random seed, versão do código, hardware).
+Plano experimental:
+- Não é fatorial completo. Realizar análises observacionais com regressões e análise de sobrevivência (time-to-event) considerando delta de dependências como evento. Aplicar amostragem estratificada por Activity e Project type.
+- Selecionar N ≈ 1.000 repositórios e registrar fatores para modelagem estatística. Repetir análises em subamostras para robustez.
 
 ---
 
@@ -243,51 +236,135 @@ Detalhamento operacional:
 
 ## 16. Protocolos para reprodutibilidade e registro
 
-- Cada execução deve registrar:
-  - commit SHA do repositório, versão do ambiente (packages + versões), arquivo de parâmetros do run.
-  - hardware (CPU, RAM), sistema operacional.
-  - seed randômica, tempo de início/fim.
-  - logs de métrica (arquivo JSON ou CSV).
-- Notebooks Jupyter com passos “run-all” para reproduzir casos chave (validação analítica e um cenário representativo de visualização).
+- Cada execução salva: repo URL, commit SHA, estado (pré/pós), metadata.json (packages list, versions, KLOC, cyclomatic), vulnerability_report.json, label.json (motivo e confidence), ambiente de execução (docker image hash), timestamp.
+- Fornecer Dockerfile e imagem com todas as dependências para executar pipeline de mineração e análise.
+- Notebooks com células "run-all" que reproduzem gráficos e estatísticas a partir dos CSV/JSON gerados.
 
 ---
 
 ## 17. Templates e formulários (resumo)
 
-- Template de run (JSON/YAML) com campos: grid, Δt, D, S, BC, viz_level, hw_profile, seed, output_path.
-- Formulário de usabilidade (Likert 1–5) com questões sobre clareza, responsividade, utilidade, estética.
-- Checklist de verificação de exportação (arquivos presentes, integridade, metadados).
+- Template de run (JSON/YAML): { repo, commit_pre, commit_post, packages_pre, packages_post, metrics_pre, metrics_post, labels }  
+- Formulário de rotulação manual (Google Forms / CSV) para classificador: campos (repo, commit, message, PR link, motivo sugerido, confidence, observações).  
+- Checklist de verificação de integridade dos snapshots (hashes, tamanho).
 
 ---
 
 ## 18. Critérios finais de aceitação do experimento
 
-- Código e dados de exemplo publicados em repositório público com instruções claras.
-- Validação analítica com erro L2 < 5% em casos testáveis (ou justificativa teórica).
-- Visualização com FPS ≥ 30 em hardware de referência para cenários didáticos.
-- Relatório contendo análise de sensibilidade e plano de continuidade.
+- Detector de commits de remoção com precision ≥ 0.8 e recall aceitável em amostra de validação.  
+- Dataset de pelo menos N=1.000 repositórios com pré/pós completos e metadados validados.  
+- Resultados reproduzíveis via Docker e scripts fornecidos.  
+- Relatório com análises estatísticas que respondem RQ1..RQ3 (descritos abaixo) e recomendações práticas.
 
 ---
 
-## Anexos: Exemplo rápido de arquivo de parâmetros (JSON)
+## 19. Perguntas de Pesquisa (RQs) mapeadas ao estudo
+
+RQ1. A remoção de bibliotecas externas reduz a superfície de ataque e a exposição a vulnerabilidades conhecidas no ecossistema do projeto?  
+- Métricas: M_vuln (contagem por severidade) antes vs depois; análise associada a M1.
+
+RQ2. A migração para funções nativas impacta a complexidade e o tamanho do código-fonte mantido pela equipe?  
+- Métricas: M2 (ΔKLOC), M3 (ΔCyclomatic), M4 (NativeSubstRate).
+
+RQ3. Quais são os motivos mais comuns para a substituição ou remoção de bibliotecas externas?  
+- Métricas: M5 (Motivo categories), contagens e proporções; M6 (confiança).
+
+---
+
+## 20. Resultados esperados (hipóteses)
+
+- H1: Repositórios que removem dependências (maior DeltaDeps) apresentam redução média significativa no número de vulnerabilidades de severidade alta/média.  
+- H2: A substituição por funções nativas não aumenta significativamente o KLOC nem a complexidade ciclomatica media (ΔKLOC ≈ 0, ΔCyclomatic ≈ 0 na média).  
+- H3: Motivos mais frequentes: manutenção/obsolescência e atualizações de dependências; segurança aparece como motivador importante em uma fração das remoções.
+
+---
+
+## 21. Ameaças à validade
+
+Ameaças principais a serem discutidas e mitigadas (serão capítulos no relatório e slides no vídeo):
+
+- Internal validity: ruído na inferência de motivo a partir de mensagens de commit; mitigação: rotulagem manual de amostra, regras heurísticas documentadas, medir confiança.
+- External validity: amostra pode não generalizar para todo ecossistema npm; mitigação: seleção estratificada por atividade/tamanho e explicitação dos limites.
+- Construct validity: métricas escolhidas (ex.: contagem de CVEs) podem não refletir verdadeiramente a superfície de ataque; mitigação: usar múltiplas fontes de vulnerabilidade e analisar severidades.
+- Reliability: variação de resultados por diferenças de parsing/monorepo; mitigação: tratar workspaces e monorepos explicitamente, repetir runs, registrar ambiente.
+- Conclusion validity: tamanho amostral insuficiente para algumas categorias; mitigação: planejar N adequado, usar testes não-paramétricos quando necessário.
+
+---
+
+## 22. Sprint final (próxima e última sprint) — entregáveis e cronograma curto
+
+Duração sugerida: 2 semanas (14 dias).
+
+Backlog priorizado:
+1. Dia 1–2: Implementar detector de commits de remoção e extrator de estados (pré/pós) para n=100 test repos.  
+2. Dia 3–5: Implementar coleta de métricas (KLOC, cyclomatic, dependency usage) e lookup de vulnerabilidades.  
+3. Dia 6–8: Rotulação manual em amostra (n=200 commits) e calibragem de heurística.  
+4. Dia 9–11: Rodar pipeline em N≈1.000 repositórios e coletar dataset completo.  
+5. Dia 12: Análises estatísticas preliminares e plots.  
+6. Dia 13: Preparar documentação reprodutível e notebooks.  
+7. Dia 14: Gravar vídeo (3–5 min) sobre ameaças à validade e finalizar relatório/TCC.
+
+Entregáveis da sprint:
+- Scripts funcionais e Dockerfile.  
+- Dataset (CSV/JSON) com metadados e métricas.  
+- Notebooks com análise e figuras.  
+- Vídeo (3–5 min) e slides sobre ameaças à validade.
+
+---
+
+## 23. Roteiro para gravação do vídeo (3–5 minutos) sobre ameaças à validade
+
+Formato (conforme exigência):
+- 1 minuto: apresentação oral do aluno (overview das ameaças/validade).  
+- 3 minutos: apresentação de slides — 1 slide por ameaça identificada (usar 3 ameaças principais; cada slide ~1 minuto).  
+- 1 minuto: encerramento oral recapitulando ações mitigadoras.
+
+Slides sugeridos (3 slides):
+1. Ameaça A — Inferência de Motivo (Internal validity): descrição do risco, exemplos e mitigação (rotulação manual, heurísticas, confidence).
+2. Ameaça B — Generalização e Amostragem (External validity): descrição e mitigação (amostragem estratificada, descrição de limites).
+3. Ameaça C — Fontes de Vulnerabilidade e Precisão (Construct validity / Reliability): descrição e mitigação (múltiplas fontes, vinculação por versão, checagem manual).
+
+Fala sugerida (sintética):
+- Intro (1 min): "Olá, sou Victor Reis Carlota. Neste projeto investigamos por que desenvolvedores removem bibliotecas em projetos JavaScript. Aponto três ameaças principais à validade e como pretendemos mitigá-las..."
+- Slides (3 min): explicar cada ameaça e ações de mitigação.
+- Encerramento (1 min): recapitular medidas (rotulagem manual, Docker para reprodutibilidade, amostragem estratificada) e indicar repositório/artefatos.
+
+---
+
+## 24. Modelos de saída e anexos
+
+- Exemplos de JSON snapshot, template de run e um exemplo de saída de `metrics.json` serão incluidos no repositório do projeto.  
+- Arquivos de figures/plots (placeholder): images/methodology.png, images/rq1_chart.png, images/rq2_chart.png, images/rq3_chart.png (substituir por gerados no notebook final).
+
+Exemplo rápido de arquivo de parâmetros (JSON)
 ```json
 {
-  "grid": [128, 128],
-  "dx": 1.0,
-  "dy": 1.0,
-  "dt": 0.1,
-  "D": 0.01,
-  "source": {"type":"instant","location":[64,64],"amplitude":1000},
-  "BC": "Dirichlet",
-  "viz_level": "medium",
-  "seed": 42,
-  "output_format": "netcdf"
+  "repo": "owner/repo",
+  "commit_pre": "sha_pre",
+  "commit_post": "sha_post",
+  "date_pre": "2024-01-01T00:00:00Z",
+  "date_post": "2024-06-01T00:00:00Z",
+  "delta_deps": 5,
+  "vuln_pre": {"high":2,"medium":3,"low":1},
+  "vuln_post": {"high":1,"medium":1,"low":0},
+  "kloc_pre": 12_345,
+  "kloc_post": 12_360,
+  "cyclomatic_pre_mean": 3.4,
+  "cyclomatic_post_mean": 3.5,
+  "motive": "Maintenance",
+  "motive_confidence": "high"
 }
 ```
 
 ---
 
-## Observações finais operacionais
-- Documentar claramente todas as escolhas de parametrização (especialmente normalizações e unidades).
-- Priorizar reprodutibilidade: scripts "run_all.sh" ou notebooks "1-setup.ipynb", "2-validation.ipynb", "3-benchmark.ipynb", "4-visualization.ipynb".
-- Manter logs e resultados organizados por pasta com convenção: results/{date}/{run_id}/ including metadata.json.
+## 25. Observações finais operacionais
+
+- Publicar repositório com versão do projeto, Dockerfile, scripts e dados (respeitando licenças/privacidade).  
+- Priorizar replicabilidade: notebooks "1-setup.ipynb", "2-extraction.ipynb", "3-analysis.ipynb".  
+- Caso deseje, posso gerar os templates: detector de commits (script), Dockerfile, notebook skeleton e slides para o vídeo. Informe qual artefato quer primeiro.
+
+Fim do documento — EXP-DP-01 v1.0  
+Responsável: Victor Reis Carlota (2025-12-05)
+```
