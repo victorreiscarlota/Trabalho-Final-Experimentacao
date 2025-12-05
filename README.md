@@ -228,88 +228,16 @@ Plano de combinações sugerido:
 
 ## 15. Fluxograma operacional do experimento (passo a passo)
 
-Abaixo segue um fluxograma que representa os passos operacionais necessários para executar o experimento desde a preparação até a análise e publicação dos resultados. Em seguida descreve-se cada passo com instrumentos, variáveis, métricas e stakeholders envolvidos.
+![Fluxograma operacional do experimento](./graphviz.svg)
 
-```mermaid
-flowchart TD
-  A[Preparação do ambiente] --> B[Definição de casos e fatores]
-  B --> C[Implementação / configuração do solver]
-  C --> D[Validação analítica (casos testáveis)]
-  D --> E[Planejamento DOE / seleção de cenários]
-  E --> F[Execução das simulações]
-  F --> G[Coleta automática de métricas (tempo, memória, erros)]
-  G --> H[Exportação de mapas (CSV / NetCDF) e logs]
-  H --> I[Integração com visualização 3D]
-  I --> J[Testes de usabilidade e performance interativa]
-  J --> K[Análise de dados: erros, sensibilidade, desempenho]
-  K --> L[Relatório, documentação e repositório público]
-  L --> M[Revisão e iteração / publicação]
-```
-
-Passo a passo operacional (detalhado):
-
-1. Preparação do ambiente (A)
-   - Instrumentos: Python 3.x, NumPy, SciPy, matplotlib, memory-profiler, timeit, pytest, Jupyter Notebooks, Git, Node.js (para Three.js) ou Unity Editor.
-   - Entregáveis: ambiente virtual (requirements.txt), scripts de setup, documentação de hardware.
-   - Stakeholders: desenvolvedor (autor), orientador.
-
-2. Definição de casos e fatores (B)
-   - Variáveis: Δx/Δy, Δt, D, S, BC, nx, ny.
-   - Métricas iniciais alvo: M1, M2, M3, M5, M6.
-   - Instrumentos: planilha DOE, scripts de geração de casos.
-   - Stakeholders: autor, orientador.
-
-3. Implementação / configuração do solver (C)
-   - Atividades: codificar FTCS 2D, modularizar entrada/saída (IO), implementar opções de BC e fontes.
-   - Testes unitários: testes de consistência de operadores, verificação de massa.
-   - Instrumentos: pytest, CI local (GitHub Actions opcional).
-   - Métricas de verificação: M3 (conservação de massa), M5 (CFL calculado).
-
-4. Validação analítica (D)
-   - Casos: solução gaussiana inicial com difusão conhecida, pulso instantâneo.
-   - Métricas: M1, M2, M4.
-   - Instrumentos: scripts de comparação analítica, plots e notebooks.
-   - Stakeholders: orientador, colaboradores.
-
-5. Planejamento DOE / seleção de cenários (E)
-   - Definir combinações a rodar (ver seção 14).
-   - Gerar tabela de runs, seeds randômicos.
-   - Instrumentos: scripts de orchestration (makefile, runners), SLURM/exec scripts se usar cluster.
-
-6. Execução das simulações (F)
-   - Rodar cenários, gerenciar logs, checagem de falhas.
-   - Registrar T_exec (M7), Tempo por passo (M6), Memória (M8).
-   - Instrumentos: timeit, memory-profiler, tracemalloc (opcional).
-
-7. Coleta automática de métricas (G)
-   - Logs estruturados (JSON/CSV) contendo: parâmetros do run, métricas M1..M15, versão do código, commit SHA, hardware.
-   - Instrumentos: logging em arquivo, pandas para agregação.
-
-8. Exportação de mapas (H)
-   - Formatos: CSV (por célula), NetCDF (mapa temporal), PNG (frames) para validação visual.
-   - Verificar integridade das exportações (hashes / tamanhos).
-   - Métricas: tempo de exportação (parte de M7), uso de memória durante export (M8).
-
-9. Integração com visualização 3D (I)
-   - Carregar mapas em Three.js ou Unity como camadas de textura/altura.
-   - Ajustes: escalas de cor, interpolação temporal, controles de interação.
-   - Métricas: M11 (FPS), M12 (Latência), M8 (memória).
-
-10. Testes de usabilidade e performance interativa (J)
-    - Protocolo: tarefas padronizadas, formulário Likert (M13), tempo para completar tarefas (M12).
-    - Instrumentos: gravação de tela (opcional), questionário, logs de eventos.
-
-11. Análise de dados: erros, sensibilidade, desempenho (K)
-    - Métodos: cálculos de M1..M15, análise estatística, gráficos de convergência, mapas de correlação espacial (M10).
-    - Ferramentas: Python (pandas, seaborn), Jupyter Notebooks para relatórios.
-
-12. Relatório, documentação e repositório público (L)
-    - Entregáveis: relatório final, notebooks com reprodutibilidade, código no GitHub, dados de exemplo.
-    - Incluir: instruções de reprodução, parâmetros e seeds, licenciamento.
-
-13. Revisão e iteração / publicação (M)
-    - Revisar resultados com orientador, ajustar código e repetir passos conforme necessário.
-    - Publicar repositório e documentação final.
+Detalhamento operacional:
+1. Seleção: aplicar filtros (JavaScript/Node.js, atividade mínima, não forks vazios).
+2. Pré-filtragem: validar package.json, workspace/monorepo handling.
+3. Detecção: analisar diffs de package.json e diretórios node_modules/packed dirs; registrar eventos de remoção.
+4. Estados: definir commit "A" (removal event) e "B" (menor dependências após pico).
+5. Análises: executar scripts de métricas e lookup de vulnerabilidades nas versões afetadas.
+6. Rotulação: heurísticas + revisão manual de amostra para calibrar confidences.
+7. Agregação e análise.
 
 ---
 
