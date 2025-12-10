@@ -195,6 +195,8 @@ Próximos passos imediatos: definir lista inicial de repositórios (candidatos),
 | Tempo de refatoração | M10 / TimeToRefactor | Tempo entre pico e menor número de dependências | dias |
 | Atividade do repo | M11 / RepoActivity | Commits por mês | commits/mês |
 
+### No presente experimento, a variável dependente é explicitamente definida como a redução do número de dependências (DeltaDeps), representada pela métrica M1. Essa variável captura a magnitude da remoção de bibliotecas externas entre os estados pré e pós-refatoração dos projetos. As demais métricas descritas no estudo — como idade das dependências, presença de vulnerabilidades, complexidade do código, tipo de projeto, nível de atividade do repositório, motivo declarado para a remoção, entre outras — atuam como variáveis independentes ou fatores explicativos. Elas são utilizadas para investigar quais características dos projetos e das dependências influenciam a ocorrência de remoções e para analisar como tais fatores se relacionam com o valor observado de DeltaDeps. Dessa forma, embora apenas M1 seja formalmente a variável dependente, o conjunto de métricas M2–M11 e os fatores categóricos compõem o espaço de variáveis independentes consideradas nas análises.
+
 ---
 
 ## 14. Fatores, Tratamentos e Combinações de Experimento
