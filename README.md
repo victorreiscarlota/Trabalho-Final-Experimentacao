@@ -292,47 +292,7 @@ Ameaças principais a serem discutidas e mitigadas (serão capítulos no relató
 
 ---
 
-## 22. Sprint final (próxima e última sprint) — entregáveis e cronograma curto
-
-Duração sugerida: 2 semanas (14 dias).
-
-Backlog priorizado:
-1. Dia 1–2: Implementar detector de commits de remoção e extrator de estados (pré/pós) para n=100 test repos.  
-2. Dia 3–5: Implementar coleta de métricas (KLOC, cyclomatic, dependency usage) e lookup de vulnerabilidades.  
-3. Dia 6–8: Rotulação manual em amostra (n=200 commits) e calibragem de heurística.  
-4. Dia 9–11: Rodar pipeline em N≈1.000 repositórios e coletar dataset completo.  
-5. Dia 12: Análises estatísticas preliminares e plots.  
-6. Dia 13: Preparar documentação reprodutível e notebooks.  
-7. Dia 14: Gravar vídeo (3–5 min) sobre ameaças à validade e finalizar relatório/TCC.
-
-Entregáveis da sprint:
-- Scripts funcionais e Dockerfile.  
-- Dataset (CSV/JSON) com metadados e métricas.  
-- Notebooks com análise e figuras.  
-- Vídeo (3–5 min) e slides sobre ameaças à validade.
-
----
-
-## 23. Roteiro para gravação do vídeo (3–5 minutos) sobre ameaças à validade
-
-Formato (conforme exigência):
-- 1 minuto: apresentação oral do aluno (overview das ameaças/validade).  
-- 3 minutos: apresentação de slides — 1 slide por ameaça identificada (usar 3 ameaças principais; cada slide ~1 minuto).  
-- 1 minuto: encerramento oral recapitulando ações mitigadoras.
-
-Slides sugeridos (3 slides):
-1. Ameaça A — Inferência de Motivo (Internal validity): descrição do risco, exemplos e mitigação (rotulação manual, heurísticas, confidence).
-2. Ameaça B — Generalização e Amostragem (External validity): descrição e mitigação (amostragem estratificada, descrição de limites).
-3. Ameaça C — Fontes de Vulnerabilidade e Precisão (Construct validity / Reliability): descrição e mitigação (múltiplas fontes, vinculação por versão, checagem manual).
-
-Fala sugerida (sintética):
-- Intro (1 min): "Olá, sou Victor Reis Carlota. Neste projeto investigamos por que desenvolvedores removem bibliotecas em projetos JavaScript. Aponto três ameaças principais à validade e como pretendemos mitigá-las..."
-- Slides (3 min): explicar cada ameaça e ações de mitigação.
-- Encerramento (1 min): recapitular medidas (rotulagem manual, Docker para reprodutibilidade, amostragem estratificada) e indicar repositório/artefatos.
-
----
-
-## 24. Modelos de saída e anexos
+## 22. Modelos de saída e anexos
 
 - Exemplos de JSON snapshot, template de run e um exemplo de saída de `metrics.json` serão incluidos no repositório do projeto.  
 - Arquivos de figures/plots (placeholder): images/methodology.png, images/rq1_chart.png, images/rq2_chart.png, images/rq3_chart.png (substituir por gerados no notebook final).
@@ -359,7 +319,7 @@ Exemplo rápido de arquivo de parâmetros (JSON)
 
 ---
 
-## 25. Observações finais operacionais
+## 23. Observações finais operacionais
 
 - Publicar repositório com versão do projeto, Dockerfile, scripts e dados (respeitando licenças/privacidade).  
 - Priorizar replicabilidade: notebooks "1-setup.ipynb", "2-extraction.ipynb", "3-analysis.ipynb".  
