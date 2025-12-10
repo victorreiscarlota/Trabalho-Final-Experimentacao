@@ -129,14 +129,72 @@ Impacto esperado: evidências empíricas sobre motivos e efeitos da remoção de
 
 ---
 
-## 8. Metodologia resumida e cronograma (sugestão para 3 meses)
+# **8. Metodologia**
+![diagrama metodologia](./metodologia.png)
 
-1. Semana 1–2: Revisão bibliográfica, seleção e filtragem inicial de repositórios; desenvolvimento de scripts de mineração.  
-2. Semana 3–4: Implementação dos detectores de commits (remoção de dependências), pipeline de clonagem e extração de estados (pré/pós).  
-3. Semana 5–6: Análise estática (KLOC, cyclomatic), coleta de CVEs e métricas de uso de dependências.  
-4. Semana 7–8: Rotulação (manual/semiauto) de motivos, treinamento/ajuste de heurísticas de classificação.  
-5. Semana 9–10: Execução das análises estatísticas e geração de visualizações; validação de resultados com amostra manual.  
-6. Semana 11–12: Redação do relatório, preparação de artefatos reprodutíveis (scripts, notebooks) e gravação do vídeo de ameaças à validade.
+A metodologia do estudo segue um fluxo operacional estruturado em seis etapas principais, indo desde a coleta de repositórios até a síntese estatística e elaboração das conclusões. O processo combina mineração de software, análise estática, inspeção de histórico, detecção de vulnerabilidades e integração de diferentes fontes em um dataset unificado. O pipeline completo é automatizado por scripts e validado manualmente em amostras de controle.
+
+## **8.1 Coleta e curadoria da fonte de dados**
+
+O processo inicia-se com a seleção sistemática de repositórios JavaScript hospedados no GitHub. A coleta utiliza a API REST oficial, aplicando filtros mínimos de qualidade — popularidade (número de stars), atividade recente e presença de dependências gerenciadas via npm. Em seguida, é aplicada uma etapa de curadoria que remove forks triviais, repositórios inativos, experimentais ou que contenham apenas testes sintéticos. A expectativa é formar um conjunto de aproximadamente 1.000 projetos aptos para mineração.
+
+## **8.2 Mineração dos repositórios**
+
+Após definida a amostra, cada repositório é clonado e analisado com ferramentas Git (CLI e bibliotecas Python). O objetivo central dessa fase é identificar commits que representam alterações significativas na cadeia de dependências — especialmente remoções de bibliotecas externas ou substituições por APIs nativas do JavaScript. Para isso, são analisados os diffs do *package.json*, *package-lock.json* e trechos específicos do código-fonte associados às mudanças. Essa etapa produz um conjunto inicial de commits candidatos para análise aprofundada.
+
+## **8.3 Identificação de padrões de remoção e substituição**
+
+Com os commits relevantes identificados, aplica-se um conjunto de heurísticas de detecção de padrões. Essas heurísticas verificam situações como:
+
+* remoção direta de dependências (diferenças negativas no bloco `"dependencies"`/`"devDependencies"`);
+* redução de dependências transitivas;
+* introdução de funções nativas que substituem funcionalidades anteriormente providas por bibliotecas externas;
+* co-ocorrência de alterações significativas no código-fonte associadas à substituição.
+
+Esse estágio é essencial para separar remoções reais de simples reorganizações ou renomeações internas, garantindo a qualidade analítica da amostra.
+
+## **8.4 Extração paralela de métricas**
+
+Para cada par de estados **pré** e **pós** remoção, três frentes de análise são executadas em paralelo:
+
+### **a) Análise de dependências e vulnerabilidades**
+
+Usa-se o `npm audit` e integrações com bases como OSV para identificar vulnerabilidades conhecidas (CVEs), dependências transitivas e seu impacto sobre a superfície de ataque do projeto. São geradas métricas como número de vulnerabilidades por severidade e idade/obsolescência de dependências removidas.
+
+### **b) Análise do histórico e evolução estrutural**
+
+Por meio de `git log` e análise da árvore de commits, são extraídos indicadores como code churn, evolução do LOC e tempo entre o pico e a queda no número de dependências. Esses dados ajudam a contextualizar o momento da remoção e a dinâmica de manutenção dos projetos.
+
+### **c) Análise de qualidade e complexidade de código**
+
+Ferramentas como SonarQube, ESLint ou Lizard são usadas para mensurar complexidade ciclomática média, ocorrência de code smells e variações no tamanho do código (KLOC). Essa etapa permite avaliar se a substituição por APIs nativas aumenta ou reduz o esforço cognitivo para manutenção.
+
+## **8.5 Consolidação e armazenamento do dataset**
+
+Os resultados das três análises paralelas convergem para um sistema de armazenamento tabular (CSV ou SQLite). Cada registro consolida:
+
+* métricas pré e pós-refatoração;
+* motivos inferidos a partir das mensagens de commit e PRs;
+* dados de vulnerabilidade relacionados às dependências removidas;
+* metadados sobre o repositório (atividade, tipo, idade, etc.).
+
+Esse dataset unificado é a base para toda a etapa subsequente de inferência estatística.
+
+## **8.6 Síntese, modelagem e correlação**
+
+Com os dados estruturados, executam-se análises estatísticas utilizando Python (Pandas, SciPy, StatsModels). Entre as técnicas aplicadas estão:
+
+* estatísticas descritivas para caracterização geral da amostra;
+* testes pareados para comparar métricas pré e pós remoção (ex.: Wilcoxon, paired t-test);
+* regressões (ex.: Poisson ou Negative Binomial) para investigar fatores associados ao DeltaDeps;
+* análises de correlação entre motivos declarados e impactos observados.
+
+Os resultados estatísticos alimentam a construção das respostas para as RQs e a validação/refutação das hipóteses formuladas.
+
+## **8.7 Conclusão e síntese qualitativa**
+
+Por fim, os achados quantitativos são complementados por uma análise qualitativa, que inclui inspeção manual de mensagens de commit, justificativas em PRs e padrões recorrentes observados. Essa síntese orienta a elaboração do relatório final, apresentando evidências, limitações do estudo e recomendações práticas para equipes que gerenciam dependências em projetos JavaScript.
+
 
 ---
 
