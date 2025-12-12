@@ -55,15 +55,55 @@ Observação: M1 é a variável dependente principal das análises inferenciais.
 - O4: Investigiar se a remoção leva à substituição por funções nativas do JavaScript ou remoção simples de referência.
 - O5: Fornecer recomendações práticas para gerenciamento de dependências.
 
-### 3.2 GQM (exemplos de perguntas e métricas)
-- Q1: A redução de dependências (M1) está associada a diminuição do número de vulnerabilidades (M_vuln)?  
-  - Métricas: M1 (VD), M_vuln (nº de CVEs), M9 (RMSE não aplicável aqui — substituir por contagem de CVEs).
-- Q2: A redução de dependências impacta o KLOC e a complexidade (M2/M3)?  
-  - Métricas: M2 (ΔKLOC), M3 (ΔCyclomatic).
-- Q3: Em que proporção a remoção foi substituída por implementações nativas do JS (M4)?  
-  - Métricas: M4 (Proporção de substituições por nativo), M1 (VD).
-- Q4: Quais categorias motivacionais são mais frequentes (M5 categórica)?  
-  - Métricas: M5 (categoria de motivo por commit/PR), contagens por categoria.
+## 3.2 GQM (perguntas e métricas)
+
+* **Q1:** A redução de dependências (M1) está associada à diminuição do número de vulnerabilidades (M_vuln)?
+
+  * *Métricas:* M1 (VD), M_vuln (nº de CVEs).
+
+* **Q2:** A redução de dependências impacta o KLOC e a complexidade (M2/M3)?
+
+  * *Métricas:* M2 (ΔKLOC), M3 (ΔCyclomatic).
+
+* **Q3:** Em que proporção a remoção foi substituída por implementações nativas do JavaScript (M4)?
+
+  * *Métricas:* M4 (NativeSubstRate), M1 (VD).
+
+* **Q4:** Quais categorias motivacionais são mais frequentes (M5)?
+
+  * *Métricas:* M5 (MotiveCategory), contagem por categoria.
+
+* **Q5:** A idade das dependências removidas (M8) influencia a probabilidade de remoção?
+
+  * *Métricas:* M8 (DependencyAgeAvg), M1 (DeltaDeps), M5 (MotiveCategory).
+
+* **Q6:** A remoção de dependências ocorre com maior frequência em períodos de maior atividade do repositório (M11)?
+
+  * *Métricas:* M11 (RepoActivity), M1 (DeltaDeps), M10 (TimeToRefactor).
+
+* **Q7:** Dependências raramente utilizadas no código (M9) têm maior probabilidade de serem removidas?
+
+  * *Métricas:* M9 (DependencyUsageRate), M1 (DeltaDeps).
+
+* **Q8:** Há relação entre o motivo da remoção (M5) e o tipo de impacto observado no código (M2/M3)?
+
+  * *Métricas:* M5 (MotiveCategory), M2 (ΔKLOC), M3 (ΔCyclomatic).
+
+* **Q9:** Dependências mais antigas (M8) estão mais associadas a remoções motivadas por vulnerabilidades (M_vuln)?
+
+  * *Métricas:* M8 (DependencyAgeAvg), M_vuln (nº de CVEs), M5 (Security).
+
+* **Q10:** O tempo para refatorar (M10) varia conforme o motivo da remoção (M5)?
+
+  * *Métricas:* M10 (TimeToRefactor), M5 (MotiveCategory).
+
+* **Q11:** Repositórios com menor atividade (M11) removem dependências com maior impacto estrutural (M2/M3)?
+
+  * *Métricas:* M11 (RepoActivity), M2 (ΔKLOC), M3 (ΔCyclomatic).
+
+* **Q12:** A remoção de dependências está associada a mudanças nos padrões de importação e modularização do código (M9)?
+
+  * *Métricas:* M9 (DependencyUsageRate), M2 (ΔKLOC), M3 (ΔCyclomatic).
 
 ---
 
